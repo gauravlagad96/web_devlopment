@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Navbar in Tailwind CSS</title>
+    <link rel="stylesheet" href="/output.css">
+    <!-- fonts  -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* Add smooth transition for mobile menu */
+        #nav-dialog {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+
+        /* Hidden menu initial state */
+        .hidden-menu {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+
+        /* Visible menu state */
+        .visible-menu {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body class="font-[Poppins] bg-gradient-to-t from-[#fbc2eb] to-[#a6c1ee] h-screen">
+    <!-- Sticky Header Section -->
+    <header class="sticky top-0 z-50 bg-white shadow-md 2xl:container">
+        <!-- Navbar -->
+        <nav class="flex items-center justify-between p-3">
+
+            <!-- Logo -->
+            <div>
+                <a href="#">
+                    <h1 class="text-lg font-bold font-display">G2Infotech</h1>
+                </a>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div id="nav-menu" class="hidden gap-12 md:flex">
+                <a href="#home" class="hover:text-blue-600" aria-label="Home">Home</a>
+                <a href="#Tutorials" class="hover:text-blue-600" aria-label="Tutorials">Tutorials</a>
+                <a href="#aws" class="hover:text-blue-600" aria-label="AWS">AWS</a>
+                <a href="#Apptitude" class="hover:text-blue-600" aria-label="Aptitude">Aptitude</a>
+            </div>
+
+            <!-- Sign Up Button -->
+            <a href="#" class="hidden p-2 text-white bg-blue-600 md:block hover:bg-blue-800 rounded-2xl">Sign Up</a>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden" aria-label="Open Menu" onclick="handleMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <!-- Mobile Menu -->
+            <div id="nav-dialog" class="fixed inset-0 z-10 p-3 bg-white hidden-menu md:hidden max-h-96">
+                <div id="nav-bar" class="flex justify-between">
+
+                    <!-- Mobile Logo -->
+                    <a href="#">
+                        <h1 class="text-lg font-bold font-display">G2Infotech</h1>
+                    </a>
+
+                    <!-- Close Button -->
+                    <button class="md:hidden" aria-label="Close Menu" onclick="handleMenu()">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Links -->
+                <div class="grid gap-4 mt-4">
+                    <a href="#home" class="px-3 py-2 rounded-lg hover:bg-gray-300" aria-label="Home" onclick="closeMenu()">Home</a>
+                    <a href="#Tutorials" class="px-3 py-2 rounded-lg hover:bg-gray-300" aria-label="Tutorials" onclick="closeMenu()">Tutorials</a>
+                    <a href="#aws" class="px-3 py-2 rounded-lg hover:bg-gray-300" aria-label="AWS" onclick="closeMenu()">AWS</a>
+                    <a href="#Apptitude" class="px-3 py-2 rounded-lg hover:bg-gray-300" aria-label="Aptitude" onclick="closeMenu()">Aptitude</a>
+
+                    <!-- Sign Up Button -->
+                    <a href="#" class="p-2 border hover:bg-gray-300 rounded-2xl" aria-label="Sign Up" onclick="closeMenu()">Sign Up</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <div id="about" class="w-full bg-red-800 h-96">About</div>
+    <div id="Tutorials" class="w-full bg-yellow-400 h-96">Tutorials</div>
+    <div id="aws" class="w-full bg-lime-800 h-96">AWS</div>
+    <div id="Apptitude" class="w-full bg-pink-800 h-96">Aptitude</div>
+
+    <script>
+        const navDialog = document.getElementById('nav-dialog');
+
+        function handleMenu() {
+            if (navDialog.classList.contains('hidden-menu')) {
+                navDialog.classList.remove('hidden-menu');
+                navDialog.classList.add('visible-menu');
+            } else {
+                navDialog.classList.remove('visible-menu');
+                navDialog.classList.add('hidden-menu');
+            }
+        }
+
+        function closeMenu() {
+            navDialog.classList.remove('visible-menu');
+            navDialog.classList.add('hidden-menu');
+        }
+
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+
+                // Close the menu on link click in mobile view
+                if (window.innerWidth < 768) {
+                    closeMenu();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
